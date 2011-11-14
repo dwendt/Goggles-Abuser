@@ -1,1 +1,2 @@
 compile and run, sln is made for VS2010 and I think it is based on .NET 4
+uses the EasyBMP library, must have curl installed
