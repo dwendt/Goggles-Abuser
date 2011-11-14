@@ -67,7 +67,7 @@ namespace goggleabuser
 			//URL shit: http://goggles.sneakygcr.net/page?jsonp=jQuery#######_#####&page=http://shit.com/&add=t&title=bullshit&r=0&g=0&b=0&a=1&t=20&p=gDfrtSagb&_=somebigIDnumber _ is actually just to circumvent browsers cacheing it
 			
 			int scale = 1;
-			int yoffset = 1800;
+			int yoffset = 0;
 			int xoffset = 0;
 			int dotdiameter = 7; //sort of good formula for this: 7 * scale + (scale-1)
 
@@ -95,7 +95,12 @@ namespace goggleabuser
 //					reader.Close();
 //					dataStream.Close();
 					resp.Close();
-					System.Threading.Thread.Sleep(80);
+
+					//this is because windows is a shitty operating system and at least on 7 x64 you'll run out of sockets too quickly, fuck over your internet, and then the request will time out
+					//so windows takes something like 30 seconds to close a socket apparently
+					System.Threading.Thread.Sleep(80); //50-80 works best, 50 has some throttling due to socket waiting so I'm not sure if it's actually faster
+
+					//apparently sockets that have already been told to close don't finish closing if you pause this thread. huh!!
 //					if(i%200 == 0) {
 //						System.Threading.Thread.Sleep(20000);
 //					}
