@@ -1,28 +1,19 @@
-/*************************************************
-*                                                *
-*  EasyBMP Cross-Platform Windows Bitmap Library * 
-*                                                *
-*  Author: Paul Macklin                          *
-*   email: macklin01@users.sourceforge.net       *
-* support: http://easybmp.sourceforge.net        *
-*                                                *
-*          file: EasyBMPsample.cpp               * 
-*    date added: 03-31-2006                      *
-* date modified: 12-01-2006                      *
-*       version: 1.06                            *
-*                                                *
-*   License: BSD (revised/modified)              *
-* Copyright: 2005-6 by the EasyBMP Project       * 
-*                                                *
-* description: Sample application to demonstrate *
-*              some functions and capabilities   *
-*                                                *
-*************************************************/
+
+#include <curlpp/curlpp.hpp>
+#include <curlpp/Easy.hpp>
+#include <curlpp/Options.hpp>
 
 #include <stdlib.h>
+#include <sstream>
 #include "EasyBMP.h"
-using namespace std;
+using namespace std; //yup
 
+template<typename T>
+string to_string(const T& t) {
+	stringstream s;
+	s << t;
+	return s.str();
+}
 
 string numToB64(int num) {
 	string b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
@@ -48,19 +39,44 @@ int main( int argc, char* argv[] )
 	int scale = 1;
 	int xoffset = 0;
 	int yoffset = 0;
+	int diameter = 7;
+	
 	
 	cout << "Width: " << toPost.TellWidth() << " Height: " << toPost.TellHeight() << " Pixels: " << toPost.TellWidth()*toPost.TellHeight() << endl;
-	for(int x=0; x<toPost.TellWidth(); x++) {
-		for(int y=0; y<toPost.TellHeight(); y++) {
-			
-			string pointSerialized = numToB64(x * scale + xoffset) + numToB64(y * scale + yoffset);
-			
-			cout << pointSerialized << endl;
-			cout << (int)toPost(x,y)->Red << endl;
-			
+
+	try {
+	
+		curlpp::Cleanup myCleanup;
+		
+		for(int x=0; x<toPost.TellWidth(); x++) {
+			for(int y=0; y<toPost.TellHeight(); y++) {
+				
+				string pointSerialized = numToB64(x * scale + xoffset) + numToB64(y * scale + yoffset);
+				
+	//			cout << pointSerialized << endl;
+	//			cout << (int)toPost(x,y)->Red << endl;
+				
+				//yes this is bad coding
+				string myURL = "http%3A%2F%2Fwww.mspaintadventures.com%2F%2F";
+				string fullURL = "http://goggles.sneakygcr.net/page?callback=fuckoff&page=" + myURL + "&add=t&title=GNAA&r=" + to_string((int)toPost(x,y)->Red) + "&g=" +  to_string((int)toPost(x,y)->Green) + "&b=" + to_string((int)toPost(x,y)->Blue) + "&a=1&t=" + to_string(diameter) + "&p=" + pointSerialized + "&_=1420891562000";
+				
+	//			system(("curl \"" + fullURL + "\"").c_str());
+				
+				curlpp::Easy myRequest;
+				
+				myRequest.setOpt<Url>(fullURL);
+				
+				myRequest.perform();
+			}
 		}
+	
+	catch(curlpp:RuntimeError & e) {
+		cout << e.what() << endl;
+	}
+	catch(curlpp::LogicError & e) {
+		cout << e.what() << endl;
 	}
 	
-	
+
 	return 0;
 }
