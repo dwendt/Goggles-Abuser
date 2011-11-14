@@ -1,6 +1,0 @@
-D:\code\goggleabuser\goggleabuser\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\code\goggleabuser\goggleabuser\bin\Debug\goggleabuser.exe
-D:\code\goggleabuser\goggleabuser\bin\Debug\goggleabuser.pdb
-D:\code\goggleabuser\goggleabuser\obj\x86\Debug\goggleabuser.exe
-D:\code\goggleabuser\goggleabuser\obj\x86\Debug\goggleabuser.pdb
-D:\code\goggleabuser\goggleabuser\bin\Debug\goggleabuser.exe.config
