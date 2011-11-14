@@ -1,8 +1,5 @@
 
-#include <curlpp/curlpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
-
+#include <curl/curl.h>
 #include <stdlib.h>
 #include <sstream>
 #include "EasyBMP.h"
@@ -44,9 +41,12 @@ int main( int argc, char* argv[] )
 	
 	cout << "Width: " << toPost.TellWidth() << " Height: " << toPost.TellHeight() << " Pixels: " << toPost.TellWidth()*toPost.TellHeight() << endl;
 
-	try {
+
+	CURL *curl;
+	CURLcode res;
 	
-		curlpp::Cleanup myCleanup;
+	curl = curl_easy_init();
+	if(curl) {
 		
 		for(int x=0; x<toPost.TellWidth(); x++) {
 			for(int y=0; y<toPost.TellHeight(); y++) {
@@ -61,22 +61,15 @@ int main( int argc, char* argv[] )
 				string fullURL = "http://goggles.sneakygcr.net/page?callback=fuckoff&page=" + myURL + "&add=t&title=GNAA&r=" + to_string((int)toPost(x,y)->Red) + "&g=" +  to_string((int)toPost(x,y)->Green) + "&b=" + to_string((int)toPost(x,y)->Blue) + "&a=1&t=" + to_string(diameter) + "&p=" + pointSerialized + "&_=1420891562000";
 				
 	//			system(("curl \"" + fullURL + "\"").c_str());
+				res = curl_easy_setopt(curl, CURLOPT_URL, fullURL.c_str());
 				
-				curlpp::Easy myRequest;
+				curl_easy_perform(curl);
 				
-				myRequest.setOpt<Url>(fullURL);
-				
-				myRequest.perform();
+
 			}
 		}
 	
-	catch(curlpp:RuntimeError & e) {
-		cout << e.what() << endl;
 	}
-	catch(curlpp::LogicError & e) {
-		cout << e.what() << endl;
-	}
-	
 
 	return 0;
 }

@@ -1,1 +1,2 @@
 uses the EasyBMP library, must have curl installed
+uses the EasyBMP and libcurl library, you need to install libcurl and curl.
