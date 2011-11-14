@@ -62,7 +62,7 @@ int main( int argc, char* argv[] )
 				
 				//yes this is bad coding
 				string goatmanTarget = "http%3A%2F%2Fwww.mspaintadventures.com%2F%2F";
-				string fullURL = "http://goggles.sneakygcr.net/page?callback=fuckoff&page=" + goatmanTarget + "&add=t&title=GNAA&r=" + to_string((int)toPost(x,y)->Red) + "&g=" +  to_string((int)toPost(x,y)->Green) + "&b=" + to_string((int)toPost(x,y)->Blue) + "&a=1&t=" + to_string(diameter) + "&p=" + pointSerialized + "&_=1420891562000";
+				string fullURL = "http://goggles.sneakygcr.net/page?callback=dotdrawnsuccess&page=" + goatmanTarget + "&add=t&title=GNAA&r=" + to_string((int)toPost(x,y)->Red) + "&g=" +  to_string((int)toPost(x,y)->Green) + "&b=" + to_string((int)toPost(x,y)->Blue) + "&a=1&t=" + to_string(diameter) + "&p=" + pointSerialized + "&_=1420891562000";
 				
 				
 //				system(("curl \"" + fullURL + "\"").c_str());
