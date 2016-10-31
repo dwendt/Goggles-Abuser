@@ -1,1 +1,7 @@
+# Goggles Abuser
+
+When this project was made there was a "Goggles" bookmarklet that overlaid a collaborative drawing interface over a URL.
+The bookmarklet would send API requests to add lines with colors at certain coordinate offsets on the page.
+
+# Running
 compile and run, sln is made for VS2010 and I think it is based on .NET 4
